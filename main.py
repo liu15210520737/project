@@ -17,7 +17,7 @@ app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 # 假设我们有一个管理员用户名和密码的字典
-admin_credentials = {'username': 'admin', 'password': generate_password_hash('password123', method='sha256')}
+admin_credentials = {'username': 'admin', 'password': generate_password_hash('password123')}
 
 index_html = '''
 <html>
