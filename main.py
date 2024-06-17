@@ -62,9 +62,9 @@ def login():
 def panel():
   return render_template_string(panel_html)
 
-@app.route('/error')
-def error():
-  return 
+@app.route('/404')
+def error_404():
+  return render_template_string(error_404-html)
 
 if __name__ == '__main__':
   app.run(host=HOST, port=PORT, debug=DEBUG_MODE)
