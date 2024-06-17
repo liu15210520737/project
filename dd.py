@@ -52,3 +52,10 @@ def logout():
 if __name__ == '__main__':
     # 确保在运行时有一个指向模板文件夹的路径
     app.run(debug=True)
+
+a = '''<form action="/submit_data" method="post">
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit">Submit</button>
+</form>
+'''
