@@ -18,14 +18,21 @@ login_html = '''
 </body>
 </html>
 '''
+panel_html = '''
+null
+'''
 
-@app.route("/")
+@app.route('/')
 def index():
   return render_template_string(index_html)
 
 @app.route('/login')
 def login():
   return render_template_string(login_html)
+
+@app.route('/panel')
+def panel():
+  return render_template_string(panel_html)
 
 if __name__ == '__main__':
   app.run(host=HOST, port=PORT, debug=DEBUG_MODE)
