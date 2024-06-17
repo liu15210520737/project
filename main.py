@@ -18,5 +18,5 @@ def index():
 def login():
   return login
 
-if __name__ == __main__:
+if __name__ == '__main__':
   app.run(host=HOST, port=PORT)
