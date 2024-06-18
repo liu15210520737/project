@@ -11,13 +11,17 @@ if not os.path.exists(config_file_path):
   print('检测到配置文件不存在,请设定管理员账号密码')
   username = input('账号:')
   password = getpass('密码:')
+  print('正在随机生成会话密钥')
+  secret_key = generate_key()
   config_data = {
     'username' : username,
-    'password' : password,
+    'password' : generate_password_hash(password),
     'host' : '0.0.0.0',
     'port' : 8888,
-    'debug' : False
+    'debug' : False,
+    'secret_key' : secret_key
   }
+  print('正在写入配置文件')
   with open(config_file_path, 'w', encoding='utf-8') as f:
     json.dump(config_data, f, ensure_ascii=False, indent=4)
   print('设定成功')
@@ -28,7 +32,8 @@ HOST = config_data['host']
 PORT = config_data['port']
 DEBUG_MODE = config_data['debug']
 username = config_data['username']
-password = config_data['password']
+password_hash = config_data['password']
+secret_key = config_data['secret_key']
 #HOST,PORT = '0.0.0.0',8888
 #DEBUG_MODE = True
 
@@ -42,12 +47,12 @@ def favicon_encoded(favicon_file_path):
     return encoded_string
 
 # 设置密钥用于会话签名
-app.config['SECRET_KEY'] = 'your-secret-key'
+app.config['SECRET_KEY'] = secret_key
 # 设置会话类型为文件系统（或其他你选择的类型）
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 # 假设我们有一个管理员用户名和密码的字典
-admin_credentials = {'username': username, 'password': generate_password_hash(password)}
+admin_credentials = {'username': username, 'password': password}
 
 index_html = '''
 <html>
@@ -84,7 +89,7 @@ def login():
     username = request.form['username']
     password = request.form['password']
     # 检查用户名和密码是否匹配
-    if username == admin_credentials['username'] and check_password_hash(admin_credentials['password'], password):
+    if username == admin_credentials['username'] and check_password_hash(admin_credentials['password_hash'], password):
       # 如果匹配，将管理员标识放入会话
       session['admin_logged_in'] = True
       return redirect(url_for('panel'))

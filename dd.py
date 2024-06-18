@@ -169,3 +169,51 @@ data = {
 # 将数据写入JSON文件
 with open('data.json', 'w', encoding='utf-8') as f:
     json.dump(data, f, ensure_ascii=False, indent=4)
+
+
+
+
+
+
+import json
+from flask import Flask, session
+from flask_session import Session  # 假设您正在使用flask_session扩展
+from werkzeug.security import generate_password_hash, check_password_hash
+
+app = Flask(__name__)
+
+# 假设 config_file_path 是您的配置文件路径
+with open(config_file_path, 'r', encoding='utf-8') as file:
+    config_data = json.load(file)
+
+HOST = config_data['host']
+PORT = config_data['port']
+DEBUG_MODE = config_data['debug']
+username = config_data['username']
+# 假设 password_hash 是已哈希的密码（在配置文件中存储）
+password_hash = config_data['password_hash']  # 注意这里使用了 password_hash 而不是 password
+
+# 设置 Flask 应用的配置
+app.config['SECRET_KEY'] = 'your-secret-key'  # 请确保这是一个安全的密钥
+app.config['SESSION_TYPE'] = 'filesystem'
+
+# 初始化 Flask-Session
+Session(app)
+
+# 假设我们有一个用于验证管理员凭据的函数
+def verify_admin_credentials(provided_username, provided_password):
+    # 这里我们假设 admin_credentials 是在 Flask 应用初始化时创建的，并且只包含哈希过的密码
+    admin_credentials = {'username': username, 'password_hash': password_hash}
+    if admin_credentials['username'] == provided_username and check_password_hash(admin_credentials['password_hash'], provided_password):
+        return True
+    return False
+
+# ... 其他 Flask 应用代码 ...
+
+# 当需要验证管理员凭据时
+provided_username = 'admin'  # 假设这是从某个请求中获取的
+provided_password = 'mypassword'  # 假设这是从某个请求中获取的
+if verify_admin_credentials(provided_username, provided_password):
+    print("登录成功！")
+else:
+    print("用户名或密码错误！")
