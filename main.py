@@ -87,8 +87,8 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   if request.method == 'POST':
-    username = request.form['username']
-    password = request.form['password']
+    username = str(request.form['username'])
+    password = str(request.form['password'])
     # 检查用户名和密码是否匹配
     if username == admin_credentials['username'] and check_password_hash(admin_credentials['password_hash'], password):
       # 如果匹配，将管理员标识放入会话
