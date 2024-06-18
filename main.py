@@ -97,7 +97,7 @@ def login():
 
 @app.route('/panel')
 def panel():
-  if 'admin_logged_in' in session and session['admin_logged_in']
+  if 'admin_logged_in' in session and session['admin_logged_in']:
     return render_template_string(panel_html)
   else:
     return redirect(url_for('login'))
