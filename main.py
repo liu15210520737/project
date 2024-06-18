@@ -27,6 +27,13 @@ index_html = '''
 </html>
 '''
 login_html = '''
+<form action="/submit_data" method="post">
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit">Submit</button>
+</form>
+'''
+test='''
 <html>
 <body>
 <a>this is login page</a>
@@ -35,6 +42,10 @@ login_html = '''
 '''
 panel_html = '''
 null
+'''
+error_404 = '''
+'''
+error_500 = '''
 '''
 
 @app.route('/')
@@ -62,9 +73,18 @@ def login():
 def panel():
   return render_template_string(panel_html)
 
+@app.route('/logout')
+def logout():
+    # 清除会话中的管理员标识
+    session.pop('admin_logged_in', None)
+    return redirect(url_for('login'))
+
 @app.route('/404')
 def error_404():
   return render_template_string(error_404-html)
 
+@app.route('/500')
+def error_500:
+  return render_template_string(error_500)
 if __name__ == '__main__':
   app.run(host=HOST, port=PORT, debug=DEBUG_MODE)
