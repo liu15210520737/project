@@ -53,7 +53,7 @@ app.config['SECRET_KEY'] = secret_key
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 # 假设我们有一个管理员用户名和密码的字典
-admin_credentials = {'username': username, 'password': password}
+admin_credentials = {'username': username, 'password_hash': password}
 
 index_html = '''
 <html>
