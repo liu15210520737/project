@@ -63,7 +63,7 @@ index_html = '''
 </html>
 '''
 login_html = '''
-<form action="/submit_data" method="post">
+<form action="/login" method="post">
   <input type="text" name="username" placeholder="Username">
   <input type="password" name="password" placeholder="Password">
   <button type="submit">Submit</button>
