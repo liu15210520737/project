@@ -69,3 +69,7 @@ def favicon_encoded(favicon_file_path):
     with open(favicon_file_path, 'rb') as image_file:
         encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
     return encoded_string
+
+
+import getpass
+password = getpass.getpass("Enter password: ")

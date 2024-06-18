@@ -1,8 +1,8 @@
 from flask import *
-import secrets, os, sys
+import secrets, os, sys, base64
 from flask_session import Session
+from getpass import getpass
 from werkzeug.security import check_password_hash, generate_password_hash
-import base64
 
 HOST,PORT = '0.0.0.0',8888
 DEBUG_MODE = True
