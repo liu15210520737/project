@@ -75,7 +75,8 @@ def logout():
     session.pop('admin_logged_in', None)
     return redirect(url_for('login'))
 
-@app.route('/error/<back>'):
+@app.route('/error/<back>')
+def error(back):
   return render_template_string(error_html, back=back)
 
 @app.route('/404')
