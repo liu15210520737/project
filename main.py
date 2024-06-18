@@ -1,8 +1,22 @@
 from flask import *
-import secrets, os, sys, base64
+import secrets, os, sys, base64, json
 from flask_session import Session
 from getpass import getpass
 from werkzeug.security import check_password_hash, generate_password_hash
+
+current_file_path = os.path.abspath(__file__)
+current_directory = os.path.dirname(current_file_path)
+if not os.path.exists(current_directory + 'config.json'):
+  print('检测到配置文件不存在,请设定管理员账号密码')
+  username = input('账号:')
+  password = getpass('密码:')
+  data = {
+    'username' : username,
+    'password' : password
+  }
+  with open('data.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=4)
+  print('设定成功')
 
 HOST,PORT = '0.0.0.0',8888
 DEBUG_MODE = True
