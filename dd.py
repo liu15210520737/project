@@ -63,3 +63,9 @@ a = '''<form action="/submit_data" method="post">
 import base64
 with open('path/to/your/image.png', 'rb') as image_file:
     encoded_string = base64.ded_string = base64.b64encode(image_file.read()).decode('utf-8')
+import base64
+
+def favicon_encoded(favicon_file_path):
+    with open(favicon_file_path, 'rb') as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+    return encoded_string

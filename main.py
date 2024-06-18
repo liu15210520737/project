@@ -12,9 +12,9 @@ def generate_key(length):
   key = secrets.token_hex(length)  # 生成指定长度的随机十六进制字符串
   return key
 def favicon_encoded(favicon_file_path):
-  with open(favicon_file_path, 'rb') as image_file:
-    encoded_string = base64.ded_string = base64.b64encode(image_file.read()).decode('utf-8')
-  return encoded_string
+    with open(favicon_file_path, 'rb') as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+    return encoded_string
 
 # 设置密钥用于会话签名
 app.config['SECRET_KEY'] = 'your-secret-key'
@@ -62,7 +62,7 @@ def login():
     if username == admin_credentials['username'] and check_password_hash(admin_credentials['password'], password):
       # 如果匹配，将管理员标识放入会话
       session['admin_logged_in'] = True
-      return redirect(url_for('admin_panel'))
+      return redirect(url_for('panel'))
     else:
       # 如果不匹配，返回错误消息
       error = 'Invalid username or password'
@@ -72,7 +72,10 @@ def login():
 
 @app.route('/panel')
 def panel():
-  return render_template_string(panel_html)
+  if 'admin_logged_in' in session and session['admin_logged_in']
+    return render_template_string(panel_html)
+  else:
+    return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():
