@@ -4,6 +4,15 @@ from flask_session import Session
 from getpass import getpass
 from werkzeug.security import check_password_hash, generate_password_hash
 
+app = Flask(__name__)
+def generate_key(length):
+  key = secrets.token_hex(length)  # 生成指定长度的随机十六进制字符串
+  return key
+def favicon_encoded(favicon_file_path):
+    with open(favicon_file_path, 'rb') as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+    return encoded_string
+
 current_file_path = os.path.abspath(__file__)
 current_directory = os.path.dirname(current_file_path)
 config_file_path = os.path.join(current_directory, 'config.json')
@@ -12,7 +21,8 @@ if not os.path.exists(config_file_path):
   username = input('账号:')
   password = getpass('密码:')
   print('正在随机生成会话密钥')
-  secret_key = generate_key()
+  secret_key = generate_key(18)
+  print('你的会话密钥为', secret_key)
   config_data = {
     'username' : username,
     'password' : generate_password_hash(password),
@@ -36,15 +46,6 @@ password_hash = config_data['password']
 secret_key = config_data['secret_key']
 #HOST,PORT = '0.0.0.0',8888
 #DEBUG_MODE = True
-
-app = Flask(__name__)
-def generate_key(length):
-  key = secrets.token_hex(length)  # 生成指定长度的随机十六进制字符串
-  return key
-def favicon_encoded(favicon_file_path):
-    with open(favicon_file_path, 'rb') as image_file:
-        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-    return encoded_string
 
 # 设置密钥用于会话签名
 app.config['SECRET_KEY'] = secret_key
