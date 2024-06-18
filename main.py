@@ -2,6 +2,7 @@ from flask import *
 import secrets, os, sys
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+import base64
 
 HOST,PORT = '0.0.0.0',8888
 DEBUG_MODE = True
@@ -10,6 +11,10 @@ app = Flask(__name__)
 def generate_key(length):
   key = secrets.token_hex(length)  # 生成指定长度的随机十六进制字符串
   return key
+def favicon_encoded(favicon_file_path):
+  with open(favicon_file_path, 'rb') as image_file:
+    encoded_string = base64.ded_string = base64.b64encode(image_file.read()).decode('utf-8')
+  return encoded_string
 
 # 设置密钥用于会话签名
 app.config['SECRET_KEY'] = 'your-secret-key'
