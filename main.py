@@ -84,7 +84,7 @@ def error_404():
   return render_template_string(error_404-html)
 
 @app.route('/500')
-def error_500:
+def error_500():
   return render_template_string(error_500)
 if __name__ == '__main__':
   app.run(host=HOST, port=PORT, debug=DEBUG_MODE)
