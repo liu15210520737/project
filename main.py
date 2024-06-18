@@ -28,24 +28,20 @@ index_html = '''
 '''
 login_html = '''
 <form action="/submit_data" method="post">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <button type="submit">Submit</button>
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <button type="submit">Submit</button>
 </form>
 '''
-test='''
-<html>
-<body>
-<a>this is login page</a>
-</body>
-</html>
-'''
+
 panel_html = '''
 null
 '''
-error_404 = '''
+error_404_html = '''
 '''
-error_500 = '''
+error_500_html = '''
+'''
+error_html = '''
 '''
 
 @app.route('/')
@@ -65,7 +61,7 @@ def login():
     else:
       # 如果不匹配，返回错误消息
       error = 'Invalid username or password'
-      return redirect(url_for('error',back='/login'))
+      return redirect(url_for('error',back='login'))
     # 如果是 GET 请求，则渲染登录页面
   return render_template_string(login_html)
 
@@ -79,12 +75,15 @@ def logout():
     session.pop('admin_logged_in', None)
     return redirect(url_for('login'))
 
+@app.route('/error/<back>'):
+  return render_template_string(error_html, back=back)
+
 @app.route('/404')
 def error_404():
-  return render_template_string(error_404-html)
+  return render_template_string(error_404_html)
 
 @app.route('/500')
 def error_500():
-  return render_template_string(error_500)
+  return render_template_string(error_500_html)
 if __name__ == '__main__':
   app.run(host=HOST, port=PORT, debug=DEBUG_MODE)
