@@ -6,20 +6,31 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 current_file_path = os.path.abspath(__file__)
 current_directory = os.path.dirname(current_file_path)
-if not os.path.exists(current_directory + 'config.json'):
+config_file_path = os.path.join(current_directory, 'config.json')
+if not os.path.exists(config_file_path):
   print('检测到配置文件不存在,请设定管理员账号密码')
   username = input('账号:')
   password = getpass('密码:')
-  data = {
+  config_data = {
     'username' : username,
-    'password' : password
+    'password' : password,
+    'host' : '0.0.0.0',
+    'port' : 8888,
+    'debug' : False
   }
-  with open('data.json', 'w', encoding='utf-8') as f:
-    json.dump(data, f, ensure_ascii=False, indent=4)
+  with open(config_file_path, 'w', encoding='utf-8') as f:
+    json.dump(config_data, f, ensure_ascii=False, indent=4)
   print('设定成功')
 
-HOST,PORT = '0.0.0.0',8888
-DEBUG_MODE = True
+with open(config_file_path, 'r', encoding='utf-8') as file:
+  config_data = json.load(file)
+HOST = config_data['host']
+PORT = config_data['port']
+DEBUG_MODE = config_data['debug']
+username = config_data['username']
+password = config_data['password']
+#HOST,PORT = '0.0.0.0',8888
+#DEBUG_MODE = True
 
 app = Flask(__name__)
 def generate_key(length):
@@ -36,7 +47,7 @@ app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 # 假设我们有一个管理员用户名和密码的字典
-admin_credentials = {'username': 'admin', 'password': generate_password_hash('password123')}
+admin_credentials = {'username': username, 'password': generate_password_hash(password)}
 
 index_html = '''
 <html>
@@ -109,4 +120,5 @@ def error_404():
 def error_500():
   return render_template_string(error_500_html)
 if __name__ == '__main__':
+  print('默认服务器端口号为8888')
   app.run(host=HOST, port=PORT, debug=DEBUG_MODE)
