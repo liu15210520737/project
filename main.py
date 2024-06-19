@@ -41,9 +41,9 @@ with open(config_file_path, 'r', encoding='utf-8') as file:
 HOST = config_data['host']
 PORT = config_data['port']
 DEBUG_MODE = config_data['debug']
-username = config_data['username']
-password_hash = config_data['password']
-secret_key = config_data['secret_key']
+username = str(config_data['username'])
+password_hash = str(config_data['password'])
+secret_key = str(config_data['secret_key'])
 #HOST,PORT = '0.0.0.0',8888
 #DEBUG_MODE = True
 
