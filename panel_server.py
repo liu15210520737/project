@@ -16,7 +16,7 @@ def favicon_encoded(favicon_file_path):
 
 current_file_path = os.path.abspath(__file__)
 current_directory = os.path.dirname(current_file_path)
-config_file_path = os.path.join(current_directory, 'config.json')
+config_file_path = os.path.join(current_directory, 'panel_config.json')
 if not os.path.exists(config_file_path):
   print('检测到配置文件不存在,请设定管理员账号密码')
   username = input('账号:')
