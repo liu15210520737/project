@@ -1,3 +1,4 @@
+#MineCraftAllServerManage
 from flask import *
 import secrets, os, sys, base64, json
 from flask_session import Session
