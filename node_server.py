@@ -2,6 +2,7 @@ from flask import *
 import os, json, secrets
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+#gunicorn --certfile=/path/to/your/certificate.pem --keyfile=/path/to/your/private_key.pem -w 4 -b 0.0.0.0:443 your_app:app
 
 def generate_key(length):
   key = secrets.token_hex(length)  # 生成指定长度的随机十六进制字符串
@@ -47,4 +48,10 @@ Session(app)
 # 假设我们有一个管理员token的字典
 admin_credentials = {'token': token}
 
-@route('/' + domain)
+@route('/' + domain + '<api>')
+def index(api):
+  pass
+
+@route('/' + domain + '/login/<token_hash>')
+def login(token_hash):
+  pass
