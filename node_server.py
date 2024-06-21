@@ -1,5 +1,5 @@
 from flask import *
-import os, json, secrets
+import os, json, secrets, flask_script
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 #gunicorn --certfile=/path/to/your/certificate.pem --keyfile=/path/to/your/private_key.pem -w 4 -b 0.0.0.0:443 your_app:app
@@ -40,6 +40,8 @@ domain = config_data['domain']
 HOST = config_data['host']
 PORT = config_data['port']
 
+app = Flask(__name__)
+script = flask_script(app)
 # 设置密钥用于会话签名
 app.config['SECRET_KEY'] = secret_key
 # 设置会话类型为文件系统（或其他你选择的类型）
@@ -48,10 +50,17 @@ Session(app)
 # 假设我们有一个管理员token的字典
 admin_credentials = {'token': token}
 
-@route('/' + domain + '<api>')
+@app.route('/' + domain + '<api>')
 def index(api):
   pass
 
-@route('/' + domain + '/login/<token_hash>')
+@app.route('/' + domain + '/login/<token_hash>')
 def login(token_hash):
   pass
+
+@script.command
+def run():
+  app.run()
+
+if __name__ == '__main__':
+  script.run()

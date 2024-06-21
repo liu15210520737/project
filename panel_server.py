@@ -4,10 +4,8 @@ import secrets, os, sys, base64, json
 from flask_session import Session
 from getpass import getpass
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_script import Manager
 
 app = Flask(__name__)
-shell = Manager(app)
 def generate_key(length):
   key = secrets.token_hex(length)  # 生成指定长度的随机十六进制字符串
   return key
