@@ -75,18 +75,20 @@ login_html = '''
 	<body>
 		<div class="control">
 			<div class="item">
-				<div class="active">登录</div><div>注册</div>
+				<div class="active">登录</div><!-- <div>注册</div> -->
 			</div>
 			<div class="content">
 				<div style="display: block;">
-					<p>账号</p>
-					<input type="text" name='username' placeholder="Username" />
-					<p>密码</p>
-					<input type="password" name='password' placeholder="Password" />
-					<br/>
-					<input type="submit" value="登录" />
+				  <form action="/login" method="post">
+					  <p>账号</p>
+					  <input type="text" name='username' placeholder="Username" />
+					  <p>密码</p>
+					  <input type="password" name='password' placeholder="Password" />
+					  <br/>
+					  <input type="submit" value="登录" />
+					</form>
 				</div>
-				<div>
+				<!-- <div>
 					<p>用户名</p>
 					<input type="text" placeholder="username" />
 					<p>密码</p>
@@ -95,7 +97,7 @@ login_html = '''
 					<input type="text" placeholder="email" />
 					<br/>
 					<input type="submit" value="登录" />
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</body>
