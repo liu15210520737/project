@@ -1,0 +1,8 @@
+{
+    "username": "liu",
+    "password": "scrypt:32768:8:1$9TlcDDIdVKfbtc08$3818e19328647695b4d6a4a85eea30e08036269fc3960cf699dafbff9e527bc9062143cf47285a7bcef8c66556bbb037b489cbe989d2b58cdd8140ef14b71cb3",
+    "host": "0.0.0.0",
+    "port": 8888,
+    "debug": true,
+    "secret_key": "c2e89a64e1e91287ac434b70f3f1378ba468"
+}
