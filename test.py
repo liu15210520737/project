@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_session import Session  # 需要安装 flask-session 来支持会话
+from flask_session import Sess            ion  # 需要安装 flask-session 来支持会话
 import os
 from werkzeug.security import check_password_hash, generate_password_hash
 
